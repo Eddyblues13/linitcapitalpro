@@ -3254,11 +3254,11 @@
                     "homepage": "http://justinhileman.com"
                 }
             ],
-            "description": "An Volt shell for modern PHP.",
+            "description": "An Linit shell for modern PHP.",
             "homepage": "http://psysh.org",
             "keywords": [
                 "REPL",
-                "Volt",
+                "Linit",
                 "console",
                 "shell"
             ],

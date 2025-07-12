@@ -204,7 +204,7 @@ class RegisterController extends Controller
    ";
 
         // Send the email
-        Mail::to('emmaboy4871@gmail.com')->send(new UserRegistrationNotification($adminMessage));
+        // Mail::to('emmaboy4871@gmail.com')->send(new UserRegistrationNotification($adminMessage));
 
         // Clear form token after successful registration
         session()->forget('form_token');

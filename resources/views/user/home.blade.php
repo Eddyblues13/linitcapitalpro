@@ -1,5 +1,6 @@
 @include('user.layouts.header')
 
+{{--
 <!-- Status Modals -->
 @if(Auth::user()->top_up_mail)
 <div class="modal fade" id="topUpMailModal" tabindex="-1" aria-hidden="true">
@@ -139,7 +140,7 @@
         </div>
     </div>
 </div>
-@endif
+@endif --}}
 
 <!-- Main Content -->
 <div class="main-content">
