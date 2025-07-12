@@ -27,7 +27,7 @@
     </div>
 
     <div class="footer-bottom">
-      <div class="copyright">Copyright © 2025 by Linit Capital Pro</div>
+      <div class="copyright">Copyright © 2023 by Linit Capital Pro</div>
     </div>
   </div>
 
