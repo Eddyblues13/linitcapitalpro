@@ -19,7 +19,8 @@
 							<img src="{{asset('user/icon/history.png')}}"
 								style="width:20px;height:20px"><br>Withdrawals</a>
 					</td>
-					<td style="font-size:9pt;text-align:center;"> <a class="" href="" style="margin-right:10px">
+					<td style="font-size:9pt;text-align:center;"> <a class="" href="{{route('traders.index')}}"
+							style="margin-right:10px">
 							<img src="{{asset('user/icon/exchange.png')}}" style="width:20px;height:20px"><br>Trade</a>
 					</td>
 					<td style="font-size:8pt;text-align:center;">

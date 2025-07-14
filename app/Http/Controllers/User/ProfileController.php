@@ -297,7 +297,7 @@ class ProfileController extends Controller
         $data['referralBalance'] = ReferralBalance::where('user_id', $user->id)->sum('amount') ?? 0;
 
         return view('user.account.photo', $data);
-    }
+    } 
 
     public function updatePhoto(Request $request)
     {

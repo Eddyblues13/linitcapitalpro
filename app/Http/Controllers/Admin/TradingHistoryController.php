@@ -13,9 +13,6 @@ class TradingHistoryController extends Controller
 {
     public function index()
     {
-        // Get list of available traders (you might have a Trader model)
-        $traders = User::where('role', 'trader')->get();
-
         // List of common trading symbols
         $symbols = [
             'BTCUSD',
@@ -44,12 +41,16 @@ class TradingHistoryController extends Controller
             'DJ30'
         ];
 
-        return view('admin.trades.create', compact('user', 'traders', 'symbols'));
+        // Fetch trading history with user and trader relations
         $histories = TradingHistory::with(['user', 'trader'])->latest()->get();
+
+        // Get all users and traders
         $users = User::all();
-        $traders = Trader::all(); 
-        return view('admin.trading-histories.index', compact('histories', 'users', 'traders', 'user', 'traders', 'symbols')); 
+        $traders = Trader::all();
+
+        return view('admin.trading-histories.index', compact('histories', 'users', 'traders', 'symbols'));
     }
+
 
     public function store(Request $request)
     {
