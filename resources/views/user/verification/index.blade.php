@@ -9,7 +9,7 @@
     <div class="row g-4">
         <div class="col-md-12">
             <div class="text-center mb-5">
-                <img src="{{ Auth::user()->profile_photo ? asset(Auth::user()->profile_photo) : asset('assets/img/human.png') }}"
+                <img src="{{ Auth::user()->profile_photo_url ? asset(Auth::user()->profile_photo_url) : asset('assets/img/human.png') }}"
                     class="account-profile-avatar mx-auto mb-3"></img>
                 <h4 class="text-white mb-2 fs-1">{{Auth::user()->first_name}}
                     {{Auth::user()->last_name}}</h4>

@@ -59,7 +59,7 @@ window.smartsupp||(function(d) {
         <div class="profile-section mb-0 d-flex">
             <div class="d-block align-items-center text-center gap-3">
                 <div class="profile-image py-4"><img
-                        src="{{ Auth::user()->profile_photo ? asset(Auth::user()->profile_photo) : asset('assets/img/human.png') }}"
+                        src="{{ Auth::user()->profile_photo_url ? asset(Auth::user()->profile_photo_url) : asset('assets/img/human.png') }}"
                         alt=""></div>
                 <div>
                     <div class="fw-bold text-white">{{Auth::user()->first_name}}
