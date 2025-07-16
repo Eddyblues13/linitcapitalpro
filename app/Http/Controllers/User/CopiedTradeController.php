@@ -94,24 +94,24 @@ class CopiedTradeController extends Controller
             // Check available balance
             $currentBalance = $this->getTradingBalance();
 
-            // if ($currentBalance < $validated['amount']) {
-            //     return response()->json([
-            //         'success' => false,
-            //         'message' => 'Insufficient trading balance. Your balance: $' . number_format($currentBalance, 2)
-            //     ], 400);
-            // }
+            if ($currentBalance < $validated['amount']) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Insufficient trading balance. Your balance: $' . number_format($currentBalance, 2)
+                ], 400);
+            }
 
-            // Decrement trading balance
-            // TradingBalance::where('user_id', $user->id)
-            //     ->decrement('amount', $validated['amount']);
+            //Decrement trading balance
+            TradingBalance::where('user_id', $user->id)
+                ->decrement('amount', $validated['amount']);
 
             // Create trading history record
-            // $trade = TradingHistory::create([
-            //     'user_id' => $user->id,
-            //     'trader_id' => $validated['trader_id'],
-            //     'amount' => $validated['amount'],
-            //     'status' => 'active'
-            // ]);
+            $trade = TradingHistory::create([
+                'user_id' => $user->id,
+                'trader_id' => $validated['trader_id'],
+                'amount' => $validated['amount'],
+                'status' => 'active'
+            ]);
 
             DB::commit();
 
@@ -119,9 +119,9 @@ class CopiedTradeController extends Controller
                 'success' => true,
                 'message' => 'Successfully copied trader',
                 'new_balance' => $currentBalance,
-                'trade_id' => 2
-                // 'new_balance' => $currentBalance - $validated['amount'],
-                // 'trade_id' => $trade->id
+                'trade_id' => 2,
+                'new_balance' => $currentBalance - $validated['amount'],
+                'trade_id' => $trade->id
             ]);
         } catch (\Exception $e) {
             DB::rollBack();

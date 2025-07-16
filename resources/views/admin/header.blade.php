@@ -99,6 +99,7 @@
             text-align: center;
         }
     </style>
+
 </head>
 
 <body data-background-color="dark">
@@ -254,7 +255,7 @@
                                     <i class="fas fa-cubes" aria-hidden="true"></i>
                                     <p>Manage Copy Trader</p>
                                 </a>
-                            </li> 
+                            </li>
 
                             <li class="nav-item">
                                 <a href="{{route('manage.users.page')}}">

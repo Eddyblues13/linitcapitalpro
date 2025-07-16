@@ -64,12 +64,12 @@ class CopyTradeController extends Controller
             $currentBalance = TradingBalance::where('user_id', $user->id)
                 ->sum('amount');
 
-            // if ($currentBalance < $amount) {
-            //     return response()->json([
-            //         'success' => false,
-            //         'message' => 'Insufficient trading balance. Your balance: $' . number_format($currentBalance, 2)
-            //     ], 400);
-            // }
+            if ($currentBalance < $amount) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Insufficient trading balance. Your balance: $' . number_format($currentBalance, 2)
+                ], 400);
+            }
 
             // Find a positive balance record to decrement
             $balanceRecord = TradingBalance::where('user_id', $user->id)
@@ -77,36 +77,35 @@ class CopyTradeController extends Controller
                 ->orderBy('created_at', 'asc') // FIFO approach
                 ->first();
 
-            // if (!$balanceRecord) {
-            //     return response()->json([
-            //         'success' => false,
-            //         'message' => 'No available balance to deduct from'
-            //     ], 400);
-            // }
+            if (!$balanceRecord) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No available balance to deduct from'
+                ], 400);
+            }
 
             // Decrement the balance
-            // $balanceRecord->decrement('amount', $amount);
+            $balanceRecord->decrement('amount', $amount);
 
             // Record the transaction
-            // $transaction = TradingHistory::create([
-            //     'user_id' => $user->id,
-            //     'trader_id' => $traderId,
-            //     'amount' => $amount,
-            //     'status' => 'active',
+            $transaction = TradingHistory::create([
+                'user_id' => $user->id,
+                'trader_id' => $traderId,
+                'amount' => $amount,
+                'status' => 'active',
 
-            // ]);
+            ]);
 
             DB::commit();
 
-            // $newBalance = $currentBalance - $amount;
-            $newBalance = $currentBalance;
+            $newBalance = $currentBalance - $amount;
+
 
             return response()->json([
                 'success' => true,
                 'message' => 'Successfully copied trader',
                 'new_balance' => $newBalance,
-                'transaction_id' => 3
-                // 'transaction_id' => $transaction->id
+                'transaction_id' => $transaction->id
             ]);
         } catch (\Exception $e) {
             DB::rollBack();

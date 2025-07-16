@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('return_rate', 8, 2)->default(0.00);
             $table->decimal('min_amount', 15, 2);
             $table->decimal('max_amount', 15, 2);
-            $table->integer('followers')->default(0);
+            $table->integer('followers')->default(0); 
             $table->decimal('profit_share', 5, 2)->default(0.00);
             $table->timestamps();
         });

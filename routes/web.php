@@ -163,7 +163,7 @@ Route::prefix('user')->middleware('user')->group(function () {
     Route::get('/current-trade', [App\Http\Controllers\User\UserController::class, 'currentTrade'])->name('current.trade');
     Route::get('/staking', [App\Http\Controllers\User\UserController::class, 'staking'])->name('staking');
     Route::get('/mining', [App\Http\Controllers\User\UserController::class, 'mining'])->name('mining');
-    Route::get('/copy-trade', [App\Http\Controllers\User\CopyTradeController::class, 'index'])->name('copy.trade'); 
+    Route::get('/copy-trade', [App\Http\Controllers\User\CopyTradeController::class, 'index'])->name('copy.trade');
     Route::post('/copy-trade', [App\Http\Controllers\User\CopyTradeController::class, 'copyTrader'])->name('copy.trader');
     // Display copied traders
     Route::get('/copied-traders', [App\Http\Controllers\User\CopiedTradeController::class, 'index'])
@@ -367,7 +367,7 @@ Route::prefix('admin')->group(function () {
 
 
         // Trading Histories Routes
-        Route::get('/trading-histories', [App\Http\Controllers\Admin\TradingHistoryController::class, 'index'])->name('admin.trading-histories.index'); 
+        Route::get('/trading-histories', [App\Http\Controllers\Admin\TradingHistoryController::class, 'index'])->name('admin.trading-histories.index');
         Route::post('/trading-histories', [App\Http\Controllers\Admin\TradingHistoryController::class, 'store'])->name('admin.trading-histories.store');
         Route::put('/trading-histories/{id}', [App\Http\Controllers\Admin\TradingHistoryController::class, 'update'])->name('admin.trading-histories.update');
         Route::delete('/trading-histories/{id}', [App\Http\Controllers\Admin\TradingHistoryController::class, 'destroy'])->name('admin.trading-histories.destroy');

@@ -38,28 +38,32 @@
                                 <div class="form-group col-md-6">
                                     <h5 class="text-light">Followers</h5>
                                     <input class="form-control text-light bg-dark"
-                                        placeholder="Enter number of followers" type="text" name="followers"
-                                        value="{{ old('followers') }}" required>
+                                        placeholder="Enter number of followers" type="number" name="followers"
+                                        value="{{ old('followers', 0) }}" required>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <h5 class="text-light">Return Rate</h5>
+                                    <h5 class="text-light">Return Rate (%)</h5>
                                     <input class="form-control text-light bg-dark" placeholder="Enter return rate"
-                                        type="text" name="return_rate" value="{{ old('return_rate') }}" required>
+                                        type="number" step="any" name="return_rate" value="{{ old('return_rate', 0) }}"
+                                        required>
                                 </div>
-                                {{-- <div class="form-group col-md-6">
-                                    <h5 class="text-light">Minimum Amount</h5>
-                                    <input class="form-control text-light bg-dark" placeholder="Enter minimum amount"
-                                        type="text" name="min_amount" value="{{ old('min_amount') }}" required>
-                                </div> --}}
-                                {{-- <div class="form-group col-md-6">
-                                    <h5 class="text-light">Maximum Amount</h5>
-                                    <input class="form-control text-light bg-dark" placeholder="Enter maximum amount"
-                                        type="text" name="max_amount" value="{{ old('max_amount') }}" required>
-                                </div> --}}
                                 <div class="form-group col-md-6">
-                                    <h5 class="text-light">Profit Share</h5>
+                                    <h5 class="text-light">Minimum Amount ($)</h5>
+                                    <input class="form-control text-light bg-dark" placeholder="Enter minimum amount"
+                                        type="number" step="any" name="min_amount" value="{{ old('min_amount') }}"
+                                        required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <h5 class="text-light">Maximum Amount ($)</h5>
+                                    <input class="form-control text-light bg-dark" placeholder="Enter maximum amount"
+                                        type="number" step="any" name="max_amount" value="{{ old('max_amount') }}"
+                                        required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <h5 class="text-light">Profit Share (%)</h5>
                                     <input class="form-control text-light bg-dark" placeholder="Enter profit share"
-                                        type="text" name="profit_share" value="{{ old('profit_share') }}" required>
+                                        type="number" step="any" name="profit_share"
+                                        value="{{ old('profit_share', 0) }}" required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <h5 class="text-light">Verified Status</h5>
@@ -71,8 +75,9 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <h5 class="text-light">Picture</h5>
+                                    <h5 class="text-light">Profile Picture</h5>
                                     <input class="form-control text-light bg-dark" type="file" name="picture" required>
+                                    <small class="text-muted">Image will be uploaded to cloud storage</small>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <input type="submit" class="btn btn-primary" value="Add Trader">
@@ -92,24 +97,50 @@
             event.preventDefault();
             var formData = new FormData(this);
 
-            fetch("{{ route('admin.trades.store') }}", {
+            // Show loading state
+            const submitBtn = this.querySelector('[type="submit"]');
+            const originalBtnText = submitBtn.value;
+            submitBtn.value = 'Processing...';
+            submitBtn.disabled = true;
+
+            fetch("{{ route('traders.store') }}", {
                 method: 'POST',
                 body: formData,
                 headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Accept': 'application/json'
                 }
             })
-            .then(response => response.json())
+            .then(async response => {
+                const contentType = response.headers.get('content-type');
+                
+                if (contentType && contentType.includes('application/json')) {
+                    return response.json();
+                }
+                
+                // Handle non-JSON responses (like HTML error pages)
+                const text = await response.text();
+                throw new Error(text || 'Server returned an error');
+            })
             .then(data => {
                 if (data.success) {
-                    toastr.success('Trader added successfully!');
-                    window.location.reload();
+                    toastr.success(data.message || 'Trader added successfully!');
+                    // Redirect or clear form after success
+                    setTimeout(() => {
+                        window.location.href = data.redirect_url || window.location.href;
+                    }, 1500);
                 } else {
-                    toastr.error('Error: ' + data.message);
+                    toastr.error(data.message || 'Error adding trader');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
+                toastr.error(error.message || 'An error occurred while processing your request');
+            })
+            .finally(() => {
+                submitBtn.value = originalBtnText;
+                submitBtn.disabled = false;
             });
         });
     </script>
+</div>

@@ -23,6 +23,11 @@
         href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&family=Sahitya:wght@400;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles2.css">
+
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('alert/ui/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('alert/css/fake-notification-min.css') }}">
+    <link rel="stylesheet" href="{{ asset('alert/css/animate.min.css') }}">
     <!-- Smartsupp Live Chat script -->
     <script type="text/javascript">
         var _smartsupp = _smartsupp || {};
@@ -228,6 +233,25 @@ window.smartsupp||(function(d) {
                         d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
                 </svg>
                 <span class="px-2"><a href="{{url('terms-of-service')}}" class="text-white">Terms of Service</a></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification-1" class="notification">
+        <div class="notification-block"
+            style="background-color: darkblue; color: white; padding: 15px; border-radius: 8px;">
+            <div class="notification-img">
+                <!-- Your image or icon -->
+                <i class="fa fa-btc" aria-hidden="true" style="font-size: 24px; color: white;"></i>
+                <!-- / Your image or icon -->
+            </div>
+            <div class="notification-text-block">
+                <div class="notification-title">
+                    <!-- Notification Title -->
+                    Earning
+                    <!-- / Notification Title -->
+                </div>
+                <div class="notification-text"></div>
             </div>
         </div>
     </div>

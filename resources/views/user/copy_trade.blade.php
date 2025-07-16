@@ -59,10 +59,10 @@
                                         <div class="stat-value text-success">{{ $trader->return_rate }}%</div>
                                         <div class="stat-label">Avg. Return</div>
                                     </div>
-                                    <div class="col-md-4 stat-item">
+                                    {{-- <div class="col-md-4 stat-item">
                                         <div class="stat-value text-info">{{ number_format($trader->followers) }}</div>
                                         <div class="stat-label">Followers</div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-4 stat-item">
                                         <div class="stat-value text-warning">{{ $trader->profit_share }}%</div>
                                         <div class="stat-label">Profit Share</div>
@@ -92,7 +92,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-{{-- <script>
+<script>
     $(document).ready(function() {
     // Search functionality
     $('#searchInput').on('input', function() {
@@ -158,7 +158,7 @@ toastr.options = {
     "positionClass": "toast-top-right",
     "timeOut": "5000"
 };
-</script> --}}
+</script>
 
 
 <script>
