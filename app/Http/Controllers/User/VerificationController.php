@@ -210,7 +210,7 @@ class VerificationController extends Controller
                 'state' => $user->state ?? null,
                 'country' => $user->country ?? null,
                 'utility_bill_url' => $utilityBillUrl,
-                'utility_bill_public_id' => $utilityBillPublicId,
+                'utility_bill_public_id' => $utilityBillPublicId, 
             ]);
 
             return response()->json([
